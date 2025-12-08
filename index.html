@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nettwerk - Proposal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #000000 0%, #1a0a2e 50%, #16213e 100%);
+            background-attachment: fixed;
+            color: #fafcff;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 3rem 2rem;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(168, 85, 247, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(168, 85, 247, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .card {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-strong {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo-box {
+            width: 2rem;
+            height: 2rem;
+            background: linear-gradient(135deg, #a855f7, #9333ea);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+
+        .logo-text {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .header-logo {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 40px;
+            opacity: 0.9;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+            color: #fff;
+        }
+
+        h4 {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .meta {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.875rem;
+            margin-top: 1rem;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .stat-label {
+            font-size: 0.625rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .text-muted {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .text-subtle {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        .text-white {
+            color: #fff;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        li .bullet {
+            color: rgba(255, 255, 255, 0.4);
+            margin-right: 0.75rem;
+        }
+
+        .phase-badge {
+            background: linear-gradient(135deg, #a855f7, #9333ea);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .phase-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .investment-section {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .investment-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 0.75rem;
+        }
+
+        .investment-amount {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+        }
+
+        .investment-term {
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+        }
+
+        .cyber-border {
+            position: relative;
+        }
+
+        .cyber-border::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(135deg, #a855f7, #9333ea);
+            border-radius: 9px;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .footer {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.875rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .border-t {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mt-4 { margin-top: 1rem; }
+        .pt-6 { padding-top: 1.5rem; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.75rem; }
+            .investment-amount { font-size: 2rem; }
+            .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+            .phase-item { flex-direction: column; }
+            .header-logo {
+                position: static;
+                margin-top: 1rem;
+                height: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo">
+            <div class="logo-box">RT</div>
+            <div class="logo-text">Rising Tides</div>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <img src="https://cdn.prod.website-files.com/675225af50c151505cafb5c8/6755c173aeed909574f3508b_logo%20(5).png" alt="Rising Tides" class="header-logo">
+            <h1>Nettwerk</h1>
+            <p class="subtitle">In-House Label Owned UGC Pages</p>
+            <p class="meta">December 2025</p>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="card-strong">
+            <h2>Executive Summary</h2>
+            <p class="text-subtle mb-6">
+                This proposal outlines a comprehensive 3-month social media growth strategy designed to build Nettwerk's catalog awareness through viral UGC (User-Generated Content) pages. The strategy focuses on creating and scaling 10 high-performing social media assets (5 TikTok + 5 Instagram pages) that will drive consistent, high-volume impressions and engagement, ultimately increasing saves and popularity scores across Nettwerk's music catalog.
+            </p>
+            <div class="grid-4">
+                <div class="stat">
+                    <p class="stat-label">Investment</p>
+                    <p class="stat-value">$12,500/mo</p>
+                </div>
+                <div class="stat">
+                    <p class="stat-label">Term</p>
+                    <p class="stat-value">3 Months</p>
+                </div>
+                <div class="stat">
+                    <p class="stat-label">Target Monthly</p>
+                    <p class="stat-value">10-15M views</p>
+                </div>
+                <div class="stat">
+                    <p class="stat-label">Platforms</p>
+                    <p class="stat-value">TikTok + IG</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overview -->
+        <div class="card">
+            <h2>Overview</h2>
+            <p class="text-subtle">
+                Nettwerk's success in today's music industry depends on algorithmic visibility and catalog performance. This proposal addresses both by building dedicated UGC pages that serve as consistent distribution channels for Nettwerk's songs and catalog. These pages will be optimized for viral growth, high view counts, and engagement that directly impacts streaming platform algorithms.
+            </p>
+        </div>
+
+        <!-- The Challenge -->
+        <div class="card-strong">
+            <h2>The Challenge</h2>
+            <p class="text-subtle text-lg">
+                Nettwerk's catalog lacks algorithmic conditioning—no virality, no saves, no popularity signals to trigger recommendations. While you wait, independent creators capture the attention cycles your artists deserve. We architect viral moments that transform dormant tracks into algorithmically favored assets.
+            </p>
+        </div>
+
+        <!-- The Solution -->
+        <div class="card">
+            <h2>The Solution</h2>
+            <p class="text-subtle mb-4">Build a network of viral UGC pages that:</p>
+            <ul>
+                <li><span class="bullet">•</span><span>Generate <strong class="text-white">10-15M views</strong> monthly impressions across platforms</span></li>
+                <li><span class="bullet">•</span><span>Drive traffic and saves to Nettwerk's catalog</span></li>
+                <li><span class="bullet">•</span><span>Create consistent algorithmic signals that boost popularity scores</span></li>
+                <li><span class="bullet">•</span><span>Serve as long-term assets for catalog promotion</span></li>
+            </ul>
+        </div>
+
+        <!-- Strategy & Approach -->
+        <div>
+            <h2 style="margin-bottom: 1.5rem;">Strategy & Approach</h2>
+
+            <!-- Content Strategy -->
+            <div class="card mb-6">
+                <h3 class="mb-4">Content Strategy</h3>
+                <div class="grid-2">
+                    <div>
+                        <h4>UGC-Focused Content:</h4>
+                        <ul class="text-sm">
+                            <li><span class="bullet">•</span><span>Trending audio/sound utilization from Nettwerk's catalog</span></li>
+                            <li><span class="bullet">•</span><span>Hook-driven content optimized for algorithm engagement</span></li>
+                            <li><span class="bullet">•</span><span>Trend-jacking with Nettwerk's music as the core audio</span></li>
+                            <li><span class="bullet">•</span><span>Community-driven content that encourages saves and shares</span></li>
+                            <li><span class="bullet">•</span><span>Strategic use of Nettwerk's catalog across different content formats</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Platform-Specific Optimization:</h4>
+                        <ul class="text-sm">
+                            <li><span class="bullet">•</span><span><strong class="text-white">TikTok:</strong> Short-form, trend-aligned content (15-60 seconds)</span></li>
+                            <li><span class="bullet">•</span><span><strong class="text-white">Instagram Reels:</strong> Mirrored content with platform-specific optimizations</span></li>
+                            <li><span class="bullet">•</span><span>Cross-platform consistency while respecting each platform's algorithm preferences</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Growth Tactics -->
+            <div class="grid-3">
+                <div class="card">
+                    <h4>1. Algorithm Optimization</h4>
+                    <ul class="text-sm">
+                        <li><span class="bullet">•</span><span>Posting schedule aligned with peak engagement windows</span></li>
+                        <li><span class="bullet">•</span><span>Content timing based on audience activity data</span></li>
+                        <li><span class="bullet">•</span><span>Sound/audio strategy leveraging Nettwerk's catalog</span></li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>2. Engagement Maximization</h4>
+                    <ul class="text-sm">
+                        <li><span class="bullet">•</span><span>Hook-first content structure</span></li>
+                        <li><span class="bullet">•</span><span>Call-to-action optimization for saves and shares</span></li>
+                        <li><span class="bullet">•</span><span>Community engagement strategies</span></li>
+                        <li><span class="bullet">•</span><span>Cross-promotion between pages</span></li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>3. Viral Mechanics</h4>
+                    <ul class="text-sm">
+                        <li><span class="bullet">•</span><span>Trend identification and rapid adaptation</span></li>
+                        <li><span class="bullet">•</span><span>Content formats proven to drive high view counts</span></li>
+                        <li><span class="bullet">•</span><span>Strategic use of Nettwerk's music in trending contexts</span></li>
+                        <li><span class="bullet">•</span><span>Data-driven content iteration</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deliverables -->
+        <div>
+            <h2 style="margin-bottom: 1.5rem;">Deliverables</h2>
+            <div class="grid-2 mb-6">
+                <div class="card">
+                    <h3 class="mb-4">5 TikTok Pages</h3>
+                    <ul>
+                        <li><span class="bullet">•</span><span>Fully optimized profiles with Nettwerk branding</span></li>
+                        <li><span class="bullet">•</span><span>Consistent posting schedule (daily content)</span></li>
+                        <li><span class="bullet">•</span><span>Content strategy aligned with viral growth</span></li>
+                        <li><span class="bullet">•</span><span>Engagement optimization</span></li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 class="mb-4">5 Instagram Pages (Mirrored)</h3>
+                    <ul>
+                        <li><span class="bullet">•</span><span>Matching content strategy to TikTok pages</span></li>
+                        <li><span class="bullet">•</span><span>Platform-specific optimizations</span></li>
+                        <li><span class="bullet">•</span><span>Reels-focused content distribution</span></li>
+                        <li><span class="bullet">•</span><span>Cross-platform consistency</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="grid-2">
+                <div class="card">
+                    <h3 class="mb-4">Content Production</h3>
+                    <ul>
+                        <li><span class="bullet">•</span><span>Daily content creation and posting across all 10 pages</span></li>
+                        <li><span class="bullet">•</span><span>Content calendar aligned with Nettwerk's release schedule</span></li>
+                        <li><span class="bullet">•</span><span>Trend adaptation and rapid content iteration</span></li>
+                        <li><span class="bullet">•</span><span>Quality control and brand alignment</span></li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 class="mb-4">Performance Management</h3>
+                    <ul>
+                        <li><span class="bullet">•</span><span>Weekly performance reports</span></li>
+                        <li><span class="bullet">•</span><span>Monthly analytics review</span></li>
+                        <li><span class="bullet">•</span><span>Strategy adjustments based on data</span></li>
+                        <li><span class="bullet">•</span><span>Catalog performance tracking (saves, streams, popularity scores)</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expected Results & Metrics -->
+        <div>
+            <h2 style="margin-bottom: 1.5rem;">Expected Results & Metrics</h2>
+            <div class="grid-2 mb-6">
+                <div class="card">
+                    <h3 class="mb-4">Primary Metrics</h3>
+                    <div class="mb-4">
+                        <p class="text-white" style="font-weight: 700;">Monthly Impressions: 10-15M views</p>
+                        <p class="text-subtle text-sm">Distributed across TikTok and Instagram with consistent month-over-month growth trajectory</p>
+                    </div>
+                    <h4>Engagement Metrics:</h4>
+                    <ul class="text-sm">
+                        <li><span class="bullet">•</span><span>High view counts per post</span></li>
+                        <li><span class="bullet">•</span><span>Increased saves and shares</span></li>
+                        <li><span class="bullet">•</span><span>Growing follower base across all pages</span></li>
+                        <li><span class="bullet">•</span><span>Improved engagement rates</span></li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 class="mb-4">Catalog Impact</h3>
+                    <h4>Algorithmic Benefits:</h4>
+                    <ul class="text-sm mb-4">
+                        <li><span class="bullet">•</span><span>Increased saves on Nettwerk's catalog</span></li>
+                        <li><span class="bullet">•</span><span>Higher popularity scores across streaming platforms</span></li>
+                        <li><span class="bullet">•</span><span>Improved algorithmic visibility for Nettwerk's songs</span></li>
+                        <li><span class="bullet">•</span><span>Sustained catalog performance</span></li>
+                    </ul>
+                    <h4>Traffic & Awareness:</h4>
+                    <ul class="text-sm">
+                        <li><span class="bullet">•</span><span>Direct traffic to Nettwerk's releases</span></li>
+                        <li><span class="bullet">•</span><span>Increased discovery of catalog songs</span></li>
+                        <li><span class="bullet">•</span><span>Brand awareness growth</span></li>
+                        <li><span class="bullet">•</span><span>Community building around Nettwerk's music</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Growth Trajectory -->
+            <div class="card">
+                <h3 class="mb-4">Growth Trajectory (3-Month Term)</h3>
+                <div class="text-subtle">
+                    <p style="display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem;">
+                        <span class="text-white" style="font-weight: 700; min-width: 80px;">Month 1:</span>
+                        <span>Foundation building, page optimization, initial growth, establishing posting rhythm</span>
+                    </p>
+                    <p style="display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem;">
+                        <span class="text-white" style="font-weight: 700; min-width: 80px;">Month 2:</span>
+                        <span>Scaling content, hitting target impression ranges, optimizing for viral performance</span>
+                    </p>
+                    <p style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <span class="text-white" style="font-weight: 700; min-width: 80px;">Month 3:</span>
+                        <span>Sustained high-performance, catalog impact maximization, full optimization of all pages</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline & Implementation -->
+        <div>
+            <h2 style="margin-bottom: 1.5rem;">Timeline & Implementation</h2>
+            <div class="card">
+                <div class="phase-item">
+                    <div class="phase-badge">Phase 1</div>
+                    <div>
+                        <p class="text-white" style="font-weight: 700; margin-bottom: 0.25rem;">Setup (Week 1-2)</p>
+                        <p class="text-subtle text-sm">Page creation and optimization, content strategy finalization, initial content batch creation, posting schedule implementation</p>
+                    </div>
+                </div>
+                <div class="phase-item">
+                    <div class="phase-badge">Phase 2</div>
+                    <div>
+                        <p class="text-white" style="font-weight: 700; margin-bottom: 0.25rem;">Launch & Growth (Week 3-4, Month 1)</p>
+                        <p class="text-subtle text-sm">Daily posting begins, initial performance tracking, strategy refinement based on early data, foundation building for scale</p>
+                    </div>
+                </div>
+                <div class="phase-item">
+                    <div class="phase-badge">Phase 3</div>
+                    <div>
+                        <p class="text-white" style="font-weight: 700; margin-bottom: 0.25rem;">Scale & Optimize (Month 2)</p>
+                        <p class="text-subtle text-sm">Scaling to target impression volumes, continuous optimization based on data, catalog integration and promotion, hitting target impression ranges</p>
+                    </div>
+                </div>
+                <div class="phase-item" style="margin-bottom: 0;">
+                    <div class="phase-badge">Phase 4</div>
+                    <div>
+                        <p class="text-white" style="font-weight: 700; margin-bottom: 0.25rem;">Maximize Performance (Month 3)</p>
+                        <p class="text-subtle text-sm">Sustained high-performance across all pages, full optimization of content strategy, maximum catalog impact, final performance reporting and handoff documentation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why This Works -->
+        <div class="card">
+            <h2>Why This Works</h2>
+            <div class="text-subtle">
+                <p style="display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem;">
+                    <span class="text-white" style="font-weight: 700;">1.</span>
+                    <span><strong class="text-white">Algorithmic Leverage:</strong> Consistent, high-volume content creates sustained algorithmic signals that boost catalog performance</span>
+                </p>
+                <p style="display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem;">
+                    <span class="text-white" style="font-weight: 700;">2.</span>
+                    <span><strong class="text-white">Scalable Assets:</strong> These pages become long-term assets for Nettwerk, not just short-term campaigns</span>
+                </p>
+                <p style="display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem;">
+                    <span class="text-white" style="font-weight: 700;">3.</span>
+                    <span><strong class="text-white">Catalog Focus:</strong> Every piece of content is designed to drive awareness and engagement with Nettwerk's music</span>
+                </p>
+                <p style="display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem;">
+                    <span class="text-white" style="font-weight: 700;">4.</span>
+                    <span><strong class="text-white">Proven Strategy:</strong> UGC pages have demonstrated success in driving music catalog performance across the industry</span>
+                </p>
+                <p style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                    <span class="text-white" style="font-weight: 700;">5.</span>
+                    <span><strong class="text-white">Data-Driven:</strong> Continuous optimization based on performance data ensures maximum ROI</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Investment & Pricing -->
+        <div class="card-strong cyber-border investment-section">
+            <p class="investment-label">Total Investment</p>
+            <p class="investment-amount">$12,500/mo</p>
+            <p class="investment-term">3-Month Term</p>
+
+            <div class="text-left border-t">
+                <p class="text-white" style="font-weight: 700; margin-bottom: 0.75rem;">This investment includes:</p>
+                <ul class="text-sm">
+                    <li><span class="bullet">•</span><span>Setup and optimization of 10 social media pages</span></li>
+                    <li><span class="bullet">•</span><span>Content creation and posting (daily across all pages) for 3 months</span></li>
+                    <li><span class="bullet">•</span><span>Growth strategy implementation</span></li>
+                    <li><span class="bullet">•</span><span>Performance monitoring and reporting (weekly & monthly)</span></li>
+                    <li><span class="bullet">•</span><span>Strategy optimization based on data</span></li>
+                    <li><span class="bullet">•</span><span>Full 3-month commitment to hitting target impression goals</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Next Steps -->
+        <div class="card-strong">
+            <h2>Next Steps</h2>
+            <div class="text-subtle">
+                <p style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+                    <span class="text-white" style="font-weight: 700;">1.</span>
+                    <span><strong class="text-white">Approval & Contract:</strong> Finalize agreement and contract terms</span>
+                </p>
+                <p style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+                    <span class="text-white" style="font-weight: 700;">2.</span>
+                    <span><strong class="text-white">Kickoff Meeting:</strong> Align on Nettwerk's catalog priorities and content preferences</span>
+                </p>
+                <p style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+                    <span class="text-white" style="font-weight: 700;">3.</span>
+                    <span><strong class="text-white">Page Setup:</strong> Begin creation and optimization of all 10 pages</span>
+                </p>
+                <p style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+                    <span class="text-white" style="font-weight: 700;">4.</span>
+                    <span><strong class="text-white">Content Launch:</strong> Start daily posting and growth strategy implementation</span>
+                </p>
+                <p style="display: flex; align-items: center; gap: 0.75rem;">
+                    <span class="text-white" style="font-weight: 700;">5.</span>
+                    <span><strong class="text-white">Performance Review:</strong> First monthly review and strategy optimization</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>For questions or to move forward with this proposal, please reach out to discuss details and next steps.</p>
+        </div>
+    </div>
+</body>
+</html>
